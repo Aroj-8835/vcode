@@ -24,7 +24,7 @@ then
         backup_file="$backup_dir/"$dbname"_mssql_full_$(date +%Y-%m-%d-%H-%M).bak"
         
         #full backup query
-        /opt/mssql-tools/bin/sqlcmd -S $hostname -U $username -P $password -Q "backup database $dbname to disk = '$backup_file'" >> $log_dir/"$dbname"_full.log 2>&1
+        /opt/mssql-tools/bin/sqlcmd -S $hostname -U $username -P $password -Q "backup database $dbname to disk = '$backup_file'" >> $log_dir/"$dbname"_full_$(date +%Y-%m-%d-%H-%M).log 2>&1
         
         #give permission to others to read the backup file to create a zip of it
         chown mssql:root $backup_dir
@@ -50,7 +50,7 @@ then
         backup_file="$backup_dir/"$dbname"_mssql_diff_$(date +%Y-%m-%d-%H-%M).bak"
 
         #differential backup query
-        /opt/mssql-tools/bin/sqlcmd -S $hostname -U $username -P $password -Q "backup database $dbname to disk = '$backup_file' with differential" >> $log_dir/"$dbname"_diff.log 2>&1
+        /opt/mssql-tools/bin/sqlcmd -S $hostname -U $username -P $password -Q "backup database $dbname to disk = '$backup_file' with differential" >> $log_dir/"$dbname"_diff_$(date +%Y-%m-%d-%H-%M).log 2>&1
 
         #give permission to others to read the backup file to create a zip of it
         chown mssql:root $backup_dir
